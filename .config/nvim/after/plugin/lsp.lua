@@ -1,3 +1,6 @@
+local cmp = require('cmp')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 local on_attach = function(client, bufnr)
     -- Mappings
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -18,9 +21,66 @@ end
 -- Go
 require('lspconfig')['gopls'].setup{
    on_attach = on_attach,
+   capabilities = capabilities,
 }
 
 -- TypeScript
-require('lspconfig')['denols'].setup{
+require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
+    capabilities = capabilities
 }
+
+-- Rust
+require('lspconfig')['rust_analyzer'].setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    rust = {
+        unstable_features = false,
+        build_on_save = false,
+        all_features = true,
+    },
+}
+
+-- Lua
+require('lspconfig')['sumneko_lua'].setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
+-- CMP Setup
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
+cmp.setup({
+    snippet = {
+      expand = function(args)
+        require('luasnip').lsp_expand(args.body)
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Esc>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'luasnip' },
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, 
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
