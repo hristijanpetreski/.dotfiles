@@ -1,7 +1,7 @@
 local cmp = require('cmp')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
     -- Mappings
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
@@ -41,8 +41,38 @@ require('lspconfig')['rust_analyzer'].setup{
     },
 }
 
+-- Python
+require('lspconfig')['pyright'].setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
 -- Lua
+local runtime_path = vim.split(package.path, ';')
+
 require('lspconfig')['sumneko_lua'].setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = runtime_path,
+            },
+            diagnostics = {
+                globals = { 'vim' },
+            },
+            workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = { enable = false },
+        },
+    },
+}
+
+-- Volar (Vue)
+require('lspconfig')['volar'].setup{
     on_attach = on_attach,
     capabilities = capabilities,
 }
