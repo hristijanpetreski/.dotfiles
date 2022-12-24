@@ -8,6 +8,7 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/playground')
     -- LSP
     use('neovim/nvim-lspconfig')
+    use('j-hui/fidget.nvim')
     -- Autocompletion
     use('hrsh7th/nvim-cmp')
     use('hrsh7th/cmp-path')
