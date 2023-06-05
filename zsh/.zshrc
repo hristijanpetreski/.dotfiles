@@ -10,6 +10,10 @@ bindkey -s ^f "tmux-sessionizer\n"
 # Aliases
 alias ll="ls -l --color=auto"
 alias la="ls -la --color=auto"
+alias ga="git add"
+alias gs="git status"
+alias gaa="git add --all"
+alias gl="git log --oneline --decorate --graph"
 
 # Oh My Posh (only apply if terminal program is tmux or iTerm2
 if [[ $TERM_PROGRAM = "iTerm.app" ]] || [[ $TERM_PROGRAM = "tmux" ]]; then

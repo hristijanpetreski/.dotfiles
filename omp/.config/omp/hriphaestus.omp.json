@@ -67,12 +67,7 @@
                     "background": "#303030",
                     "leading_diamond": " \ue0b6",
                     "trailing_diamond": "\ue0b4",
-                    "template": "{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }} \ue718 {{ .Full }}",
-                    "properties": {
-                        "fetch_package_manager": true,
-                        "npm_icon": " <#cc3a3a>\ue5fa</> ",
-                        "yarn_icon": " <#348cba>\uf61a</>"
-                    }
+                    "template": "\ue718 {{ .Full }}"
                 },
                 {
                     "type": "go",
