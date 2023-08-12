@@ -32,8 +32,7 @@ function git_prompt_info() {
     echo "[${ref:gs/%/%%}] "
 }
 
-PROMPT=$'$(git_prompt_info)> '
-RPROMPT='%~'
+PROMPT='%~ %F{green}$(git_prompt_info)%f> '
 
 # NVM
 export NVM_DIR="$HOME/.nvm"

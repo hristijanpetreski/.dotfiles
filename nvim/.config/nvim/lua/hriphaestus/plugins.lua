@@ -5,8 +5,11 @@ local plugins = {
         dependencies = {"nvim-lua/plenary.nvim"}
     },
     "mbbill/undotree",
+    "tpope/vim-sleuth",
     "folke/neodev.nvim",
     "j-hui/fidget.nvim",
+    "tpope/vim-rhubarb",
+    "tpope/vim-fugitive",
     "folke/which-key.nvim",
     "numToStr/Comment.nvim",
     "neovim/nvim-lspconfig",
