@@ -1,4 +1,9 @@
 -- Editor Settings 
-require('hriphaestus.set')
+require("hriphaestus.set")
+
 -- Keyboard Shortcuts
-require('hriphaestus.remap')
+require("hriphaestus.remap")
+
+-- Lazy Init
+require("hriphaestus.lazy")
+require("hriphaestus.plugins")
