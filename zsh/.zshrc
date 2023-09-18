@@ -37,7 +37,7 @@ function get_kanye_quote() {
     echo $quote; 
 }
 
-PROMPT='%~ %F{green}$(git_prompt_info)%f> '
+PROMPT='%~ %F{green}$(git_prompt_info)%f%F{red}>%f '
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
