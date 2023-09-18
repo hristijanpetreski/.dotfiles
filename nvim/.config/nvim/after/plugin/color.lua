@@ -1,5 +1,5 @@
 function ColorMyVim(color, transparent)
-    color = color or "onedark"
+    color = color or "catppuccin-mocha"
     vim.cmd.colorscheme(color)
 
     if transparent then

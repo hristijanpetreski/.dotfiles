@@ -15,6 +15,7 @@ local plugins = {
     "neovim/nvim-lspconfig",
     "williamboman/mason.nvim",
     "nvim-lualine/lualine.nvim",
+    "MunifTanjim/prettier.nvim",
     "williamboman/mason-lspconfig.nvim",
     {
         -- Autocompletion
@@ -38,11 +39,7 @@ local plugins = {
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
     },
-    {
-        -- Theme inspired by Atom
-        "navarasu/onedark.nvim",
-        priority = 1000,
-    }
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
 }
 
 local opts = {}
