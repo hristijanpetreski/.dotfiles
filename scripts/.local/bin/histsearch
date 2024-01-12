@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+command=$(cat $HOME/.zsh_history | fzf)
+
+if [[ -z $command ]]; then
+	exit 0
+fi
+
+echo $command | pbcopy

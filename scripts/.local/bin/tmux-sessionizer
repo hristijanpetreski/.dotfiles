@@ -14,6 +14,8 @@ session_name=$(basename $session | tr . _)
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     tmux new-session -s $session_name -c $session
     exit 0
+else
+    tmux attach-session -t $session_name
 fi
 
 if ! tmux has-session -t $session_name 2> /dev/null; then

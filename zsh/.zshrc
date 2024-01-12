@@ -6,6 +6,7 @@ setopt prompt_subst
 setopt hist_ignore_dups
 
 # Keybinds
+bindkey -v
 bindkey -s ^f "tmux-sessionizer\n"
 
 # Aliases

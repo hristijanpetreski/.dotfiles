@@ -15,8 +15,14 @@ local plugins = {
     "neovim/nvim-lspconfig",
     "williamboman/mason.nvim",
     "nvim-lualine/lualine.nvim",
-    "MunifTanjim/prettier.nvim",
     "williamboman/mason-lspconfig.nvim",
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    },
     {
         -- Autocompletion
         "hrsh7th/nvim-cmp",
