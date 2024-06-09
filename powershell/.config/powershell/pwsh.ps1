@@ -1,8 +1,5 @@
 # Prompt
-oh-my-posh init pwsh --config $HOME\.config\omp\hriphaestus.omp.json | Invoke-Expression
-
-# Modules
-Import-Module Terminal-Icons
+oh-my-posh init pwsh --config $HOME\.config\omp\hriphaestus.toml | Invoke-Expression
 
 # Aliases
 Set-Alias vim nvim
