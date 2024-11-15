@@ -104,8 +104,12 @@ return {
 					},
 				},
 				gopls = {},
+				taplo = {},
 				denols = {},
+				svelte = {},
+				yamlls = {},
 				pyright = {},
+				ruby_lsp = {},
 				rust_analyzer = {},
 				html = { filetypes = { "html", "twig", "hbs" } },
 			}
