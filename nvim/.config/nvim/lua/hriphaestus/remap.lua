@@ -1,9 +1,18 @@
 -- Remove Defaults
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+-- Clear Highlights
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- Window stuff
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
 -- Move Selection
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected line up" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected line down"})
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected line down" })
 
 vim.keymap.set("n", "J", "mzJ`z")
 
@@ -16,7 +25,7 @@ vim.keymap.set("n", "n", "nzzzv", { desc = "Keep search in the middle when going
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Keep search in the middle when going to previous occurance" })
 
 -- Copy to clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y", { desc = "Copy text to clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy text to clipboard" })
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw" })
 vim.keymap.set("n", "<C-s>", "<cmd>:w<CR>", { desc = "Save current file" })
