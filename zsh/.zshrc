@@ -16,8 +16,8 @@ bindkey -v
 bindkey -s ^f "tmux-sessionizer\n"
 
 # Aliases
-alias ll="ls -l --color=always"
-alias la="ls -la --color=always"
+alias ll="eza -l --icons --group-directories-first"
+alias la="eza -laa --icons --group-directories-first"
 alias ga="git add"
 alias gs="git status"
 alias gaa="git add --all"
