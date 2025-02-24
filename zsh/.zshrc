@@ -27,3 +27,5 @@ alias gl="git log --oneline --decorate --graph"
 # Prompt
 eval "$(oh-my-posh init zsh -c ~/.config/omp/hriphaestus.toml)"
 
+# Mise
+eval "$(mise activate zsh)"
