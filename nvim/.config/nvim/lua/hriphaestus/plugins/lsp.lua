@@ -14,7 +14,6 @@ return {
 		dependencies = {
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
@@ -103,9 +102,9 @@ return {
 						},
 					},
 				},
+				ts_ls = {},
 				gopls = {},
-				taplo = {},
-				denols = {},
+				taplo = {}, -- TOML
 				svelte = {},
 				yamlls = {},
 				pyright = {},
@@ -122,9 +121,10 @@ return {
 				"prettier",
 				"rubocop",
 			})
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
+				automatic_installation = true,
+				ensure_installed = ensure_installed,
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
