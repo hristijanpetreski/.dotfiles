@@ -9,7 +9,13 @@ setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_save_no_dups
 setopt hist_find_no_dups
+
 HISTSIZE=5000
+HISTFILE=~/.zsh_history
+
+# Autoloads
+autoload -U compinit
+compinit
 
 # Keybinds
 bindkey -v
@@ -29,3 +35,4 @@ eval "$(oh-my-posh init zsh -c ~/.config/omp/hriphaestus.toml)"
 
 # Mise
 eval "$(mise activate zsh)"
+
