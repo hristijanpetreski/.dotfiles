@@ -1,25 +1,61 @@
 #!/usr/bin/env zsh
 
-# Get a directory selection
-session=$(find ~/Documents/Personal -mindepth 1 -maxdepth 1 -type d | fzf)
+# Select a project directory via fzf
+session_path=$(find ~/Development/Personal -mindepth 1 -maxdepth 1 -type d | \
+  fzf --preview 'eza -laa --icons --group-directories-first {}' --reverse --prompt="Project: ")
 
-# If nothing is selected, quit successfully
-if [[ -z $session ]]; then
+[[ -z "$session_path" ]] && exit 0
+
+# Normalize session name
+session_name=$(basename "$session_path" | tr . _)
+config_file="$HOME/Development/.config/$session_name.toml"
+
+# Reuse tmux session if it already exists
+if tmux has-session -t "$session_name" 2>/dev/null; then
+    if [[ -n $TMUX ]]; then
+        tmux switch-client -t "$session_name"
+    else
+        tmux attach-session -t "$session_name"
+    fi
     exit 0
 fi
 
-tmux_running=$(pgrep tmux)
-session_name=$(basename $session | tr . _)
+# Start a detached session with a placeholder window
+tmux new-session -s "$session_name" -c "$session_path" -n 'zsh' -d
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $session_name -c $session
-    exit 0
+# If TOML config exists, load and parse windows
+if [[ -f "$config_file" ]]; then
+    # Parse with yq or a toml-compatible tool (requires yq v4+ with TOML support)
+    window_count=$(yq e '.window | length' "$config_file")
+    
+    for i in $(seq 0 $((window_count - 1))); do
+        name=$(yq e ".window[$i].name" "$config_file")
+        cmd=$(yq e ".window[$i].cmd" "$config_file")
+		dir=$(yq e ".window[$i].dir // \"\"" "$config_file")
+
+		# Resolve target path
+        window_path="$session_path"
+        if [[ -n "$dir" && -d "$session_path/$dir" ]]; then
+            window_path="$session_path/$dir"
+        fi
+
+        if [[ -z "$cmd" || "$cmd" == "null" ]]; then
+            tmux new-window -t "$session_name:" -n "$name" -c "$window_path"
+        else
+            tmux new-window -t "$session_name:" -n "$name" -c "$window_path" "$cmd"
+        fi
+    done
+
+    # Kill placeholder after creating real windows
+    tmux kill-window -t "$session_name:zsh"
 else
-    tmux attach-session -t $session_name
+    echo "No config found for $session_name. Using default shell window."
 fi
 
-if ! tmux has-session -t $session_name 2> /dev/null; then
-    tmux new-session -s $session_name -c $session -d
+# Attach or switch based on current shell context
+if [[ -n $TMUX ]]; then
+    tmux switch-client -t "$session_name"
+else
+    tmux attach-session -t "$session_name"
 fi
 
-tmux switch-client -t $session_name
